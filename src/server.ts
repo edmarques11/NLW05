@@ -1,15 +1,4 @@
-import express from "express";
-import './database'
-
-const app = express();
-
-app.get("/", (request, response) => {
-  return response.json({ message: "Hello NLW05" });
-});
-
-app.post("/users", (request, response) => {
-  return response.json({ message: "User saved with success!" });
-});
+import { app } from "./app";
 
 const PORT = process.env.PORT ? process.env.PORT : 3333;
 
