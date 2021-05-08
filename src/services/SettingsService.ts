@@ -15,6 +15,7 @@ class SettingsService {
   }
 
   async create({ chat, username }: ISettingsCreate) {
+    try {
     const userAlreadExists = await this.settingsRepository.findOne({
       username,
     });
@@ -28,7 +29,6 @@ class SettingsService {
       username,
     });
 
-    try {
       await this.settingsRepository.save(settings);
       return settings;
     } catch (error) {

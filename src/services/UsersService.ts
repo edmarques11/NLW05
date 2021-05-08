@@ -10,19 +10,32 @@ class UsersService {
   }
 
   async create(email: string) {
-    const userExists = await this.usersRepository.findOne({
-      email,
-    });
-
-    if (userExists) {
-      return { message: "User exists!", user: userExists };
-    }
-
     try {
+      const userExists = await this.usersRepository.findOne({
+        email,
+      });
+
+      if (userExists) {
+        return { message: "User exists!", user: userExists };
+      }
+
       const user = this.usersRepository.create({
         email,
       });
+
       await this.usersRepository.save(user);
+      
+      return user;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findByEmail(email: string) {
+    try {
+      const user = await this.usersRepository.findOne({
+        email,
+      });
       return user;
     } catch (error) {
       throw new Error(error);

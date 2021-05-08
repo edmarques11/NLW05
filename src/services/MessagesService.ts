@@ -16,13 +16,13 @@ class MessagesService {
   }
 
   async create({ admin_id, text, user_id }: IMessageCreate) {
+    try {
     const message = this.messagesRepository.create({
       admin_id,
       text,
       user_id,
     });
 
-    try {
       await this.messagesRepository.save(message);
       return message;
     } catch (error) {
